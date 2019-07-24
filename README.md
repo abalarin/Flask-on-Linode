@@ -14,6 +14,18 @@ The goal is to deploy our web application with as little configuration and serve
 - Ubuntu 19.04
 - Nanode, 1GB RAM, 1CPU Linode
 
+## Table of Contents
+- Flask-on-Linode
+- Table of Contents
+- Before You Begin
+- Get your App on your Linode
+- Installing Python and pip
+- Configuring your environment variables
+- Configure NGINX
+- Install Python and Packages
+- Run your Application
+- Configure Supervisor
+
 ## Before You Begin
 You'l want to make sure you have already built out a Flask Application that you are ready to deploy to a production environment. If you haven't already created your app or its still under constructions you can use this [basic blog App](https://github.com/abalarin/Flask-on-Linode)
 
@@ -45,23 +57,7 @@ scp -r your_app/ root@<Linode-IP>:/home
 ```
 
 
-## Installing Python, Nginx and Gunicorn
-
-```
-sudo apt install python3
-sudo apt install python3-pip
-
-#sudo apt install virtualenv
-#sudo apt install gunicorn
-```
-
-## Test you app using development server:
-```
-virtualenv -p python3 venv
-```
-...
-
-## Create a configuration file for your environment variables
+## Configuring your environment variables
 If your application has environment variables you may want to move them into a configuration file.
 1. Create a configuration file for any of the environment variable for your Application.
 ```
@@ -103,7 +99,16 @@ unlink /etc/nginx/sites-enabled/default
 sudo nginx -s reload
 ```
 
-## Install Your Flask App Packages
+## Install Python and Packages
+1. Install Python 3
+```
+sudo apt install python3
+```
+2. Install pip
+```
+sudo apt install python3-pip
+```
+3. Install Flask Packages
 ```
 pip3 install -r requirements.txt
 ```
