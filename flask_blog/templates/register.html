@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+  <form action="/register" method="POST">
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input class="form-control" id="username" name="username" placeholder="Enter username">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="password1">Password</label>
+      <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
+    </div>
+
+    <div class="form-group">
+      <label for="password2">Confirm Password</label>
+      <input type="password" class="form-control" id="password2" name="password2" placeholder="Password">
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <a href="/login">Login</a>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+</div>
+
+{% endblock content %}

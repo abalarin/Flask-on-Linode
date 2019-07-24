@@ -1,0 +1,17 @@
+<script src="{{ url_for('static', filename='scripts/messages.js') }}"></script>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}" id="banner">{{ message }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% if error %}
+<div class="alert alert-danger">{{error}}</div>
+{% endif %}
+
+{% if success %}
+<div class="alert alert-success">{{success}}</div>
+{% endif %}

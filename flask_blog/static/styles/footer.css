@@ -1,0 +1,29 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+
+  /* Set the fixed height of the footer here */
+  line-height: 60px;
+
+  /* Vertically center the text there */
+  background-color: #f5f5f5;
+  z-index: 100;
+  font-size: 20px;
+}
+
+#linode {
+  max-height: 40px;
+  margin-right: 150px;
+}
+#github {
+  max-height: 40px;
+}
+
+@media only screen and (max-width: 900px) {
+  /* For mobile phones: */
+  .footer span{
+    display: none;
+  }
+}
