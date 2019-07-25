@@ -29,7 +29,7 @@ You may want to source control your project with [git](https://github.com) so th
 ## Move your App to your Linode
 So you have finished developing your shiny Python Flask Application and want to deploy it to a production environment for the world to see. You can either retrieve your app from source control or SCP it from your Local Machine.
 
-#### If you retrieve your app from source control:
+#### Retrieving your Application from source control
 1. SSH into your Linode
 ```
 ssh user@<Linode-IP>
@@ -43,7 +43,7 @@ cd /home
 git clone https://github.com/abalarin/Flask-on-Linode.git
 ```
 
-#### If you're copying it directly from your Local Machine
+#### Retrieving your Application from your Local Machine
 1. SCP your Applications root directory into your Linode's Home directory
 ```
 scp -r flask_app/ user@<Linode-IP>:/home
@@ -108,8 +108,9 @@ unlink /etc/nginx/sites-enabled/default
 sudo nginx -s reload
 ```
 
-##### If you try navigating to your Linode's IP in a web browser you you get the following or a similar error. Next we are going to set up our Web Server Gateway Interface (WSGI) so that NGINX can communicate with our application
+###### If you try navigating to your Linode's IP in a web browser you should get the following or a similar error.
 ![NGINX Bad Gateway](https://us-east-1.linodeobjects.com/linodestuff/badgateway.png)
+###### Next we are going to set up our Web Server Gateway Interface (WSGI) so that NGINX can communicate with our application and the internet can enjoy our stuff.
 
 ## Install Python and Packages
 You should now be in your applications root directory on your Linode.
@@ -133,7 +134,7 @@ Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork 
 ```
 pip3 install gunicorn
 ```
-2. Run Gunicorn from your Application's root directory or a directory up from your Application's entry point. In the below example we are telling Gunicorn to look for the WSGI instance named _app_ in the _flask_app_ directory. In our example project this WSGI instance named _app_ is located in `__init__.py`.
+2. Run Gunicorn from your Application's root directory or a directory up from your Application's entry point. In the below example we are telling Gunicorn to look for the WSGI instance named _app_ in the _flask_app_ directory. In our [example project](https://github.com/abalarin/Flask-on-Linode) this WSGI instance named _app_ is located in `__init__.py`.
 ```
 gunicorn -w 3 flask_app:app
 ```
