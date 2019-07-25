@@ -2,9 +2,9 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from passlib.hash import sha256_crypt
 
-from flask_blog import app, db
-from flask_blog.models import User, Post
-from flask_blog.forms import PostForm
+from flask_app import app, db
+from flask_app.models import User, Post
+from flask_app.forms import PostForm
 
 @app.route("/")
 def index():
