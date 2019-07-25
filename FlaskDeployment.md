@@ -108,6 +108,9 @@ unlink /etc/nginx/sites-enabled/default
 sudo nginx -s reload
 ```
 
+##### If you try navigating to your Linode's IP in a web browser you you get the following or a similar error. Next we are going to set up our Web Server Gateway Interface (WSGI) so that NGINX can communicate with our application
+![NGINX Bad Gateway](https://us-east-1.linodeobjects.com/linodestuff/badgateway.png)
+
 ## Install Python and Packages
 You should now be in your applications root directory on your Linode.
 1. Install [Python 3](https://www.python.org/download/releases/3.0/)
@@ -130,15 +133,16 @@ Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork 
 ```
 pip3 install gunicorn
 ```
-2. You are going to want to run Gunicorn from your applications root directory
+2. Run Gunicorn from your Application's root directory or a directory up from your Application's entry point. In the below example we are telling Gunicorn to look for the WSGI instance named _app_ in the _flask_app_ directory. In our example project this WSGI instance named _app_ is located in `__init__.py`.
 ```
 gunicorn -w 3 flask_app:app
 ```
+You can also specify the amount of workers you want Gunicorn to use with the `-w` flag. A good rule of thumb is double your CPU core's and add 1. For a Nanode with 1 CPU core thats 3 workers.
 
-#### Your Application is now live!! You should be able to navigate to it by entering your Linodes IP into a browser.
+#### Your Application is now live!! You should be able to navigate to it by entering your Linodes IP into a web browser.
 
 ## Configure Supervisor
-Supervisor is a client/server system that allows its users to monitor and control a number of processes on UNIX-like operating systems. Supervisor is great for auto-reloading gunicorn if it crashes or your Linode needs to be rebooted.
+Supervisor is a client/server system that allows its users to monitor and control a number of processes on UNIX-like operating systems. Supervisor is great for auto-reloading gunicorn if it crashes or if your Linode is rebooted unexpectedly.
 1. Install Supervisor
 ```
 sudo apt install supervisor
@@ -171,5 +175,6 @@ sudo supervisorctl reload
 ```
 
 # Whats Next
+- Deploying a Production Database
 - Adding a FQDN
-- Containerizing Your App
+- Containerizing Your Application

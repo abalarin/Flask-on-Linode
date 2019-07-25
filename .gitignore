@@ -1,2 +1,4 @@
-flask_blog/__pycache__
+flask_app/__pycache__
 /flenv
+
+*.pyc
