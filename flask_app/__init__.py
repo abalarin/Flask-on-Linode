@@ -11,4 +11,4 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-from flask_blog import routes
+from flask_app import routes
