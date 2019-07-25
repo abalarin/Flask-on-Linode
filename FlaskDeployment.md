@@ -1,28 +1,23 @@
 # Flask-on-Linode
-If you are just learning how to use Python and have started dabbiling with Web Applications that interact with persistant data, then this guide may help you deploy your app!
+If you are just learning how to use Python and have started dabbling with Web Applications that interact with persistent data, then this guide may help you deploy your app!
 
-The goal is to deploy our web application with as little configuration and server managment as possible.
+The goal is to deploy our web application with as little configuration and server management as possible.
 
 #### Tech Used
-- Python
-- Flask
-- Nginx
-- Gunicorn
+- [Python](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/1.0.x/)
+- [NGINX](https://www.nginx.com/resources/wiki/)
+- [Gunicorn](http://docs.gunicorn.org/en/stable/)
 - Supervisor
 
-#### Infrastructure
-- Ubuntu 19.04
-- Nanode, 1GB RAM, 1CPU Linode
-
 ## Table of Contents
-- [Before You Begin](https://github.com/abalarin/Flask-on-Linode#before-you-begin)
-- Move your App to your Linode
-- Installing Python and pip
-- Configure Environment Variables
-- Configure NGINX
-- Install Python and Packages
-- Deploy your Application
-- Configure Supervisor
+- [Before You Begin](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#before-you-begin)
+- [Move your App to your Linode](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#move-your-app-to-your-linode)
+- [Configure Environment Variables](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#configure-environment-variables)
+- [Configure NGINX](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#configure-nginx)
+- [Install Python and Packages](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#install-python-and-packages)
+- [Deploy your Application](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#deploy-your-application)
+- [Configure Supervisor](https://github.com/abalarin/Flask-on-Linode/blob/master/FlaskDeployment.md#configure-supervisor)
 
 ## Before You Begin
 You'll want to make sure you have already built out a Flask Application that you are ready to deploy to a production environment. If you haven't already created an app or its still under constructions you can use this [Simple Flask Blog Application](https://github.com/abalarin/Flask-on-Linode) for this tutorial.
@@ -79,6 +74,7 @@ import urllib3
 ```
 
 ## Configure [NGINX](https://www.nginx.com/)
+NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server.
 1. Install NGINX
 ```
 sudo apt install nginx
@@ -120,21 +116,27 @@ Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork 
 ```
 pip3 install gunicorn
 ```
-2. Run it
+2. You are going to want to run Gunicorn from your applications root directory
 ```
 gunicorn -w 3 flask_app:app
 ```
 
+#### Your Application is now live!! You should be able to navigate to it by entering your Linodes IP into a browser.
+
 ## Configure Supervisor
+Supervisor is a client/server system that allows its users to monitor and control a number of processes on UNIX-like operating systems. Supervisor is great for auto-reloading gunicorn if it crashes or your Linode needs to be rebooted.
 1. Install Supervisor
 ```
 sudo apt install supervisor
 ```
+2. Create a Supervisor program
 ```
 sudo nano /etc/supervisor/conf.d/flaskapp.conf
+```
+```
 [program:flaskapp]
-directory=/home/flask_blog
-command=/home/flask_blog/venv/bin/gunicorn -w 3 flask_blog:app
+directory=/home/Flask-on-Linode
+command=gunicorn -w 3 flask_app:app
 autostart=true
 autorestart=true
 stopasgroup=true
