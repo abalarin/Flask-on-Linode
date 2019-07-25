@@ -46,22 +46,26 @@ git clone https://github.com/abalarin/Flask-on-Linode.git
 #### If you're copying it directly from your Local Machine
 1. SCP your Applications root directory into your Linode's Home directory
 ```
-scp -r your_app/ root@<Linode-IP>:/home
+scp -r flask_app/ user@<Linode-IP>:/home
 ```
 
 
 ## Configure Environment Variables
-If your application has environment variables you may want to move them into a configuration file. This can be skipped if you Project doesnt have any environment vairables.
-1. Create a configuration file for any of the environment variable for your Application.
+If your application has environment variables you may want to move them into a configuration file. This can be skipped if you Project doesn't have any environment variables.
+
+The following are rudimentary examples of some environment variables that you might have on your application.
+1. Create a configuration file for any of the environment variables for your Application.
 ```
-nano /etc/config.json
+sudo nano /etc/config.json
+```
+```
 {
 	"SECRET_KEY": "1A37BbcCJh67",
 	"SQLALCHEMY_DATABASE_URI": "sqlite:///site.db"
 }
 ```
 
-2. Modify your Flask config to import the newly created configuration.
+2. Modify your Flask configuration and import the newly created json config.
 ```
 import json
 import urllib3
@@ -79,32 +83,42 @@ NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as
 ```
 sudo apt install nginx
 ```
-2. Create NGINX Configuration File. Since we are using Gunicorn you can copy off of their [NGINX configuration](https://gunicorn.org/#deployment) to start.
+2. Create an NGINX Configuration file
 ```
-# If you dont have a domain you will want to insert your Linodes IP
 sudo nano /etc/nginx/sites-enabled/flaskapp
 ```
+```
+server {
+	listen 80;
+	server_name <Your Linodes IP>;
 
+	location / {
+		proxy_pass http://127.0.0.1:8000;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+}
+```
 3. Unlink the NGINX default config
 ```
 unlink /etc/nginx/sites-enabled/default
 ```
-4. Reload your NGINX Server
+4. Reload your NGINX server
 ```
 sudo nginx -s reload
 ```
 
 ## Install Python and Packages
-You should now be in your application root directory on your Linode.
-1. Install Python 3
+You should now be in your applications root directory on your Linode.
+1. Install [Python 3](https://www.python.org/download/releases/3.0/)
 ```
 sudo apt install python3
 ```
-2. Install pip
+2. Install [pip](https://pip.pypa.io/en/stable/installing/)
 ```
 sudo apt install python3-pip
 ```
-3. Install Flask Packages/libraries
+3. Install Flask Packages/libraries. If you are using the example [Flask Blog Application](https://github.com/abalarin/Flask-on-Linode) then the packages will be located in requirements.txt
 ```
 pip3 install -r requirements.txt
 ```
