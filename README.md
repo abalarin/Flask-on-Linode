@@ -19,9 +19,9 @@ Flask-on-Linode
 │   │
 │   └───static
 │   │   │   ...
-│   │   
+│   │
 │   └───templates
-│   │   │   ...   
+│   │   │   ...
 
 ```
 
@@ -41,8 +41,8 @@ Lets walk through setting up your development environment and deploying this app
 
 2. Clone this repo and CD into the projects directory
 ```
-git clone https://github.com/abalarin/Flask-on-Linode.git
-cd Flask-on-Linode
+git clone https://github.com/abalarin/Flask-on-Linode.git flask_app_project
+cd flask_app_project
 ```
 3. Create and activate a virtualenv
 ```
@@ -51,11 +51,11 @@ source venv/bin/activate
 ```
 4. Install packages
 ```
-pip install -r requriments.txt
+pip install -r flask_app/requirements.txt
 ```
 5. Create Flask environment variables
 ```
-export FLASK_APP=CourtFinder
+export FLASK_APP=flask_app/__init__.py
 export FLASK_ENV=development
 ```
 6. Run it
