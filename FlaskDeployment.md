@@ -51,7 +51,7 @@ scp -r flask_app/ user@<Linode-IP>:/home
 
 
 ## Configure Environment Variables
-If your application has environment variables you may want to move them into a configuration file. This can be skipped if you Project doesn't have any environment variables.
+If your application has environment variables, you may want to move them into a configuration file. This can be skipped if you Project doesn't have any environment variables.
 
 The following are rudimentary examples of some environment variables that you might have on your application.
 1. Create a configuration file for any of the environment variables for your Application.
@@ -110,7 +110,7 @@ sudo nginx -s reload
 
 ###### If you try navigating to your Linode's IP in a web browser you should get the following or a similar error.
 ![NGINX Bad Gateway](https://us-east-1.linodeobjects.com/linodestuff/badgateway.png)
-###### Next we are going to set up our Web Server Gateway Interface (WSGI) so that NGINX can communicate with our application and the internet can enjoy our stuff.
+###### Next we are going to set up our Web Server Gateway Interface (WSGI) so that NGINX can communicate with our application, and the internet can enjoy our stuff.
 
 ## Install Python and Packages
 You should now be in your applications root directory on your Linode.
@@ -134,11 +134,11 @@ Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork 
 ```
 pip3 install gunicorn
 ```
-2. Run Gunicorn from your Application's root directory or a directory up from your Application's entry point. In the below example we are telling Gunicorn to look for the WSGI instance named _app_ in the _flask_app_ directory. In our [example project](https://github.com/abalarin/Flask-on-Linode) this WSGI instance named _app_ is located in `__init__.py`.
+2. Run Gunicorn from your Application's root directory, or a directory up from your Application's entry point. In the below example we are telling Gunicorn to look for the WSGI instance named _app_ in the _flask_app_ directory. In our [example project](https://github.com/abalarin/Flask-on-Linode) this WSGI instance named _app_ is located in `__init__.py`.
 ```
 gunicorn -w 3 flask_app:app
 ```
-You can also specify the amount of workers you want Gunicorn to use with the `-w` flag. A good rule of thumb is double your CPU core's and add 1. For a Nanode with 1 CPU core thats 3 workers.
+You can also specify the amount of workers you want Gunicorn to use with the `-w` flag. A good rule of thumb is double your CPU core's and add 1. For a Nanode with 1 CPU core that's 3 workers.
 
 #### Your Application is now live!! You should be able to navigate to it by entering your Linodes IP into a web browser.
 
@@ -175,7 +175,7 @@ touch /var/log/flaskapp/flaskapp.err.log
 sudo supervisorctl reload
 ```
 
-# Whats Next
+# What's Next
 - Deploying a Production Database
 - Adding a FQDN
 - Containerizing Your Application

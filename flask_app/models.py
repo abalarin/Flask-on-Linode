@@ -2,6 +2,7 @@ from datetime import datetime
 from flask_app import db, login_manager
 from flask_login import UserMixin
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -15,7 +16,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return(self.username)
+        return self.username
 
 
 class Post(db.Model):
@@ -26,4 +27,4 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return(self.id)
+        return self.id

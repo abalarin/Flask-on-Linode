@@ -32,7 +32,7 @@ These are the [Flask](http://flask.pocoo.org/docs/1.0/) libraries used in this P
 - [Flask-WTF](https://flask-wtf.readthedocs.io/en/stable/)
 
 ## Deploying Locally
-Lets walk through setting up your development environment and deploying this application on your local machine
+Let's walk through setting up your development environment and deploying this application on your local machine
 
 1. Install Python, pip, and virtualenv
   - [Python](https://www.python.org/)
