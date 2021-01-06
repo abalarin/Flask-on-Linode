@@ -1,10 +1,11 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from passlib.hash import sha256_crypt
 
 from flask_app import app, db
 from flask_app.models import User, Post
 from flask_app.forms import PostForm
+
 
 @app.route("/")
 def index():
@@ -33,15 +34,15 @@ def register():
             flash('Password Error!', 'danger')
             return render_template('register.html')
 
-        hashed_pass = sha256_crypt.encrypt(str(passwd1))
+        hashed_pass = sha256_crypt.hash(str(passwd1))
 
         new_user = User(
             username=request.form.get('username'),
             email=request.form.get('username'),
             password=hashed_pass)
 
-        if user_exsists(new_user.username, new_user.email):
-            flash('User already exsists!', 'danger')
+        if user_exists(new_user.username, new_user.email):
+            flash('User already exists!', 'danger')
             return render_template('register.html')
         else:
             # Insert new user into SQL
@@ -66,7 +67,7 @@ def login():
         # Query for a user with the provided username
         result = User.query.filter_by(username=username).first()
 
-        # If a user exsists and passwords match - login
+        # If a user exists and passwords match - login
         if result is not None and sha256_crypt.verify(password_candidate, result.password):
 
             # Init session vars
@@ -87,7 +88,7 @@ def logout():
 
 
 # Check if username or email are already taken
-def user_exsists(username, email):
+def user_exists(username, email):
     # Get all Users in SQL
     users = User.query.all()
     for user in users:
@@ -96,6 +97,7 @@ def user_exsists(username, email):
 
     # No matching user
     return False
+
 
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
