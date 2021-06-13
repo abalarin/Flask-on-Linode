@@ -18,43 +18,43 @@ def about():
     return render_template("index.html")
 
 
-@app.route("/register", methods=['GET', 'POST'])
-def register():
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
 
-    if request.method == 'GET':
-        return render_template('register.html')
+#     if request.method == 'GET':
+#         return render_template('register.html')
 
-    else:
-        # Create user object to insert into SQL
-        passwd1 = request.form.get('password1')
-        passwd2 = request.form.get('password2')
+#     else:
+#         # Create user object to insert into SQL
+#         passwd1 = request.form.get('password1')
+#         passwd2 = request.form.get('password2')
 
-        if passwd1 != passwd2 or passwd1 == None:
-            flash('Password Error!', 'danger')
-            return render_template('register.html')
+#         if passwd1 != passwd2 or passwd1 == None:
+#             flash('Password Error!', 'danger')
+#             return render_template('register.html')
 
-        hashed_pass = sha256_crypt.encrypt(str(passwd1))
+#         hashed_pass = sha256_crypt.encrypt(str(passwd1))
 
-        new_user = User(
-            username=request.form.get('username'),
-            email=request.form.get('username'),
-            password=hashed_pass)
+#         new_user = User(
+#             username=request.form.get('username'),
+#             email=request.form.get('username'),
+#             password=hashed_pass)
 
-        if user_exsists(new_user.username, new_user.email):
-            flash('User already exsists!', 'danger')
-            return render_template('register.html')
-        else:
-            # Insert new user into SQL
-            db.session.add(new_user)
-            db.session.commit()
+#         if user_exsists(new_user.username, new_user.email):
+#             flash('User already exsists!', 'danger')
+#             return render_template('register.html')
+#         else:
+#             # Insert new user into SQL
+#             db.session.add(new_user)
+#             db.session.commit()
 
-            login_user(new_user)
+#             login_user(new_user)
 
-            flash('Account created!', 'success')
-            return redirect(url_for('index'))
+#             flash('Account created!', 'success')
+#             return redirect(url_for('index'))
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/personal-login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
